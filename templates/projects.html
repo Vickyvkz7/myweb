@@ -1,0 +1,874 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Vignesh P{% endblock %}
+
+{% block content %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    .project-scope {
+        /* === Navbar-Matching Color Scheme === */
+        --primary: #6366f1;        /* Navbar primary color */
+        --primary-light: #818cf8;  /* Lighter shade */
+        --primary-dark: #4f46e5;   /* Darker shade */
+        --secondary: #06d6a0;      /* Navbar accent color */
+        --accent: #f59e0b;         /* Warm accent */
+        
+        --bg-dark: #0f172a;        /* Deep navy background */
+        --bg-card: #1e293b;        /* Card background */
+        --bg-overlay: rgba(30, 41, 59, 0.8);
+        --text: #f1f5f9;           /* Primary text */
+        --text-light: #cbd5e1;     /* Secondary text */
+        --text-lighter: #94a3b8;   /* Tertiary text */
+        --border: rgba(99, 102, 241, 0.3);
+        --border-light: rgba(99, 102, 241, 0.1);
+        
+        /* === Enhanced Gradients === */
+        --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        --gradient-dark: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 100%);
+        --gradient-card: linear-gradient(145deg, var(--bg-card) 0%, #334155 100%);
+        --gradient-hero: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 214, 160, 0.1) 100%);
+        
+        /* === Enhanced Shadows === */
+        --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.4);
+        --shadow-accent: 0 0 20px rgba(6, 214, 160, 0.3);
+        
+        /* === Enhanced Transitions === */
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-dark);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* === Enhanced Background Effects === */
+    .project-scope::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(6, 214, 160, 0.05) 0%, transparent 25%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* === Enhanced Hero Section === */
+    .mini-hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+        background: var(--gradient-hero);
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .mini-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(6, 214, 160, 0.1) 0%, transparent 50%);
+        animation: floatBackground 20s ease-in-out infinite;
+    }
+
+    @keyframes floatBackground {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-20px, -10px) scale(1.02); }
+        66% { transform: translate(10px, 15px) scale(0.98); }
+    }
+
+    .mini-hero h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+    }
+
+    .mini-hero p {
+        font-size: 1.3rem;
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+        font-weight: 400;
+    }
+
+    /* === Enhanced Filter Bar === */
+    .mini-filter-bar {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 4rem 0 3rem;
+        flex-wrap: wrap;
+        padding: 0 1rem;
+    }
+
+    .mini-btn {
+        background: var(--bg-overlay);
+        border: 2px solid var(--border);
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-light);
+        transition: var(--transition-bounce);
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mini-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: var(--transition-slow);
+        z-index: -1;
+    }
+
+    .mini-btn:hover,
+    .mini-btn.active {
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+    }
+
+    .mini-btn.active::before,
+    .mini-btn:hover::before {
+        left: 0;
+    }
+
+    /* === Enhanced Compact Card Design === */
+    .compact-card {
+        background: var(--bg-overlay);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: var(--transition-bounce);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    /* Enhanced Side Accent */
+    .compact-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: var(--transition-slow);
+        z-index: 2;
+    }
+
+    .compact-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 
+            var(--shadow-glow),
+            var(--shadow-accent),
+            0 25px 50px rgba(0, 0, 0, 0.3);
+        border-color: var(--primary);
+    }
+
+    .compact-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Enhanced Media Area */
+    .card-media-small {
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .card-media-small::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.4));
+        pointer-events: none;
+    }
+
+    .card-media-small img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-slow);
+        filter: brightness(0.9);
+    }
+
+    .compact-card:hover .card-media-small img {
+        transform: scale(1.1);
+        filter: brightness(1);
+    }
+
+    /* Enhanced Floating Action Buttons */
+    .card-actions {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: var(--transition-bounce);
+    }
+
+    .compact-card:hover .card-actions {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .action-btn {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition-bounce);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .action-btn:hover {
+        background: var(--primary);
+        color: white;
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: var(--shadow-glow);
+    }
+
+    /* Enhanced Content Area */
+    .card-body-compact {
+        padding: 1.75rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .cat-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--primary);
+        background: rgba(99, 102, 241, 0.1);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        letter-spacing: 0.5px;
+    }
+
+    .status-badge {
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.3rem 0.7rem;
+        border-radius: 12px;
+        background: rgba(6, 214, 160, 0.1);
+        color: var(--secondary);
+        border: 1px solid rgba(6, 214, 160, 0.3);
+    }
+
+    .compact-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+        background: linear-gradient(135deg, var(--text) 0%, var(--text-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .compact-desc {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+        /* Multi-line clamp (WebKit) with sensible fallback */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        /* max-height as fallback to ensure consistent clipping in non-webkit browsers */
+        max-height: 4.6rem; /* ~3 lines (0.95rem * 1.6 * 3 ≈ 4.56rem) */
+    }
+
+    /* Enhanced Tags */
+    .mini-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-light);
+    }
+
+    .mini-tag {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-light);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        transition: var(--transition);
+        font-weight: 500;
+    }
+
+    .mini-tag:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-glow);
+    }
+
+    /* Enhanced Grid Layout */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2.5rem;
+        padding: 0 1rem;
+        margin-bottom: 4rem;
+    }
+
+    /* Stats Section */
+    .projects-stats {
+        background: var(--bg-card);
+        padding: 4rem 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .stat-card {
+        text-align: center;
+        padding: 2rem;
+        background: var(--bg-overlay);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        transition: var(--transition);
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-glow);
+        border-color: var(--primary);
+    }
+
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: var(--text-light);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    /* CTA Section */
+    .projects-cta {
+        padding: 6rem 0;
+        background: var(--gradient-dark);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .projects-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(6, 214, 160, 0.1) 0%, transparent 50%);
+    }
+
+    .cta-title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+        position: relative;
+    }
+
+    .cta-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .btn-custom-primary {
+        background: var(--gradient-primary);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: var(--transition-bounce);
+        box-shadow: var(--shadow-medium);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-custom-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-glow);
+        color: white;
+    }
+
+    .btn-custom-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: var(--transition-bounce);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-custom-outline:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-glow);
+    }
+
+    /* Loading Animation for Images */
+    .card-media-small img {
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .card-media-small img.loaded {
+        opacity: 1;
+    }
+
+    /* === Enhanced Responsive Design === */
+    @media (max-width: 768px) {
+        .mini-hero {
+            padding: 6rem 0 3rem;
+        }
+
+        .mini-hero h2 {
+            font-size: 2.5rem;
+        }
+
+        .mini-hero p {
+            font-size: 1.1rem;
+        }
+
+        .mini-filter-bar {
+            gap: 0.5rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .mini-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .compact-card:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mini-hero h2 {
+            font-size: 2rem;
+        }
+
+        .mini-hero p {
+            font-size: 1rem;
+        }
+
+        .card-body-compact {
+            padding: 1.5rem;
+        }
+
+        .compact-title {
+            font-size: 1.1rem;
+        }
+
+        .compact-desc {
+            font-size: 0.85rem;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+    <div class="container">
+        <div class="mini-filter-bar" data-aos="fade-up" data-aos-delay="200">
+            <button class="mini-btn active" data-filter="all">All Projects</button>
+            <button class="mini-btn" data-filter="fullstack">Full Stack</button>
+            <button class="mini-btn" data-filter="web">Web Dev</button>
+            <button class="mini-btn" data-filter="python">Python</button>
+            <button class="mini-btn" data-filter="automation">Automation</button>
+            <button class="mini-btn" data-filter="data">Data Science</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+
+            <!-- Project 1 -->
+            <div class="project-item" data-category="fullstack web python" data-aos="fade-up" data-aos-delay="100">
+                <div class="compact-card">
+                    <div class="card-media-small">
+                        <img src="{{ url_for('static', filename='images/projects/edu2.png') }}" 
+                             alt="Career Guidance Platform" 
+                             onload="this.classList.add('loaded')">
+                        <div class="card-actions">
+                            <a href="#" class="action-btn" title="Live Demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="action-btn" title="Source Code">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body-compact">
+                        <div class="meta-row">
+                            <span class="cat-label">Full Stack</span>
+                            <span class="status-badge">Completed</span>
+                        </div>
+                        <h3 class="compact-title">AI Career Guidance Platform</h3>
+                        <p class="compact-desc">
+                            Intelligent platform helping students discover career paths with AI-powered recommendations, 
+                            real-time chat support, and personalized learning roadmaps.
+                        </p>
+                        <div class="mini-tags">
+                            <span class="mini-tag">python</span>
+                            <span class="mini-tag">flask</span>
+                            <span class="mini-tag">mysql</span>
+                            <span class="mini-tag">JavaScript</span>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-item" data-category="web python" data-aos="fade-up" data-aos-delay="150">
+                <div class="compact-card">
+                    <div class="card-media-small">
+                        <img src="{{ url_for('static', filename='images/projects/heal.png') }}" 
+                             alt="Dharma Yatra"
+                             onload="this.classList.add('loaded')">
+                        <div class="card-actions">
+                            <a href="#" class="action-btn" title="Live Demo">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a href="#" class="action-btn" title="Case Study">
+                                <i class="fas fa-chart-bar"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body-compact">
+                        <div class="meta-row">
+                            <span class="cat-label">python</span>
+                            <span class="status-badge">Completed</span>
+                        </div>
+                        <h3 class="compact-title">Heal rural</h3>
+                        <p class="compact-desc">
+                           Empowering Rural Health Workers with Intelligent Symptom AnalysisBridging Human, Animal, and Environmental Health MonitoringReal-time Outbreak Detection and Preventive Healthcare
+
+
+                        </p>
+                        <div class="mini-tags">
+                            <span class="mini-tag">Flask</span>
+                            <span class="mini-tag">MySQL</span>
+                            <span class="mini-tag">JavaScript</span>
+                            <span class="mini-tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-item" data-category="python automation" data-aos="fade-up" data-aos-delay="200">
+                <div class="compact-card">
+                    <div class="card-media-small">
+                        <img src="{{ url_for('static', filename='images/projects/quiltt.png') }}" 
+                             alt="Video Automation Tool"
+                             onload="this.classList.add('loaded')">
+                        <div class="card-actions">
+                            <a href="#" class="action-btn" title="Source Code">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="action-btn" title="Documentation">
+                                <i class="fas fa-book"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body-compact">
+                        <div class="meta-row">
+                            <span class="cat-label">Quilt Variety Real-Time Monitoring System</span>
+                            <span class="status-badge">In Progress</span>
+                        </div>
+                        <h3 class="compact-title">A smart digital dashboard for factory-floor visibility.</h3>
+                        <p class="compact-desc">
+                           This system provides live tracking of all quilt varieties across production and storage.It removes manual errors and communication gaps using real-time digital updates.Designed for factory TV display
+                        </p>
+                        <div class="mini-tags">
+                            <span class="mini-tag">Python</span>
+                            <span class="mini-tag">Flask</span>
+                            <span class="mini-tag">mysql</span>
+                            <span class="mini-tag">Clowd AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <!-- <section class="projects-cta">
+        <div class="container">
+            <h2 class="cta-title" data-aos="fade-up">Ready to Start Your Project?</h2>
+            <p class="cta-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Let's collaborate to bring your ideas to life with cutting-edge technology 
+                and exceptional user experiences.
+            </p>
+            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
+                <a href="{{ url_for('contact') }}" class="btn-custom-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Start a Project
+                </a>
+                <a href="{{ url_for('about') }}" class="btn-custom-outline">
+                    <i class="fas fa-user"></i>
+                    Learn About Me
+                </a>
+            </div>
+        </div>
+    </section> -->
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS with enhanced settings
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic'
+        });
+
+        // Enhanced filter functionality
+        const buttons = document.querySelectorAll('.mini-btn');
+        const items = document.querySelectorAll('.project-item');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                buttons.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button with animation
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                // Filter items with enhanced animation
+                items.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category.includes(filter)) {
+                        // Show item with animation
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        // Hide item with animation
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+
+                // Refresh AOS after filter
+                setTimeout(() => AOS.refresh(), 350);
+            });
+        });
+
+        // Count up animation for stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    stat.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = Math.floor(current);
+                }
+            }, 16);
+        });
+
+        // Enhanced image loading
+        const images = document.querySelectorAll('.card-media-small img');
+        images.forEach(img => {
+            if (img.complete) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                });
+                img.addEventListener('error', function() {
+                    // Handle broken images gracefully
+                    this.style.backgroundColor = 'var(--bg-card)';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.innerHTML = '<i class="fas fa-image" style="font-size: 2rem; color: var(--text-light);"></i>';
+                });
+            }
+        });
+
+        // Enhanced hover effects for cards
+        const cards = document.querySelectorAll('.compact-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+    });
+
+    // Utility function for external filtering
+    function filterProjects(category) {
+        const buttons = document.querySelectorAll('.mini-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('data-filter') === category) {
+                btn.click();
+            }
+        });
+    }
+
+    // Make function globally available
+    window.filterProjects = filterProjects;
+</script>
+{% endblock %}
