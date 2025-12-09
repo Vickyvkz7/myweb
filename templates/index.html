@@ -13,6 +13,19 @@
         padding-top: 80px;
     }
 
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 70px;
+            min-height: calc(100vh - 10px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero {
+            padding-top: 60px;
+        }
+    }
+
     .hero::before {
         content: '';
         position: absolute;
@@ -72,6 +85,21 @@
         z-index: 2;
     }
 
+    @media (max-width: 768px) {
+        .hero-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-container {
+            padding: 0 1rem;
+            gap: 1.5rem;
+        }
+    }
+
     .hero-content {
         color: white;
     }
@@ -110,6 +138,20 @@
         line-height: 1.1;
     }
 
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-title {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+    }
+
     .title-line {
         display: block;
         opacity: 0;
@@ -143,6 +185,20 @@
         line-height: 1.6;
         opacity: 0;
         animation: fadeIn 0.8s ease 0.8s forwards;
+    }
+
+    @media (max-width: 768px) {
+        .hero-description {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-description {
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
     }
 
     @keyframes fadeIn {
@@ -683,7 +739,7 @@
         }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 300px) {
         .hero-container {
             padding: 0 1rem;
         }
