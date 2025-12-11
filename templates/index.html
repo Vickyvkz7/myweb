@@ -213,10 +213,42 @@
         margin-bottom: 2rem;
         opacity: 0;
         animation: fadeIn 0.8s ease 1s forwards;
+        flex-wrap: wrap;
+        justify-content: flex-start;
     }
 
     .stat {
         text-align: center;
+        flex: 0 1 calc(33.333% - 1.35rem);
+        min-width: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .hero-stats {
+            gap: 1rem;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
+
+        .stat {
+            flex: 0 1 calc(33.333% - 0.67rem);
+            min-width: auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-stats {
+            gap: 0.75rem;
+            justify-content: space-between;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
+        .stat {
+            flex: 0 1 calc(33.333% - 0.5rem);
+            min-width: auto;
+            text-align: center;
+        }
     }
 
     .stat-number {
@@ -229,9 +261,16 @@
         background-clip: text;
     }
 
-    .stat-label {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.7);
+    @media (max-width: 768px) {
+        .stat-number {
+            font-size: 1.75rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stat-number {
+            font-size: 1.5rem;
+        }
     }
 
     .hero-actions {
@@ -240,6 +279,21 @@
         flex-wrap: wrap;
         opacity: 0;
         animation: fadeIn 0.8s ease 1.2s forwards;
+    }
+
+    @media (max-width: 768px) {
+        .hero-actions {
+            gap: 0.75rem;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-actions {
+            gap: 0.75rem;
+            justify-content: center;
+            flex-direction: row;
+        }
     }
 
     /* ===== ENHANCED UNIQUE PROFILE DESIGN ===== */
@@ -705,10 +759,6 @@
     }
 
     @media (max-width: 768px) {
-        .hero-stats {
-            justify-content: center;
-        }
-        
         .profile-master {
             width: 350px;
             height: 350px;
@@ -770,8 +820,15 @@
         }
         
         .hero-stats {
-            flex-direction: column;
-            gap: 1rem;
+            flex-direction: row;
+            gap: 0.75rem;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+        }
+        
+        .stat {
+            flex: 0 1 calc(33.333% - 0.5rem);
+            min-width: auto;
         }
         
         .hero-actions {
@@ -801,7 +858,7 @@
             <h1 class="hero-title">
                 <span class="title-line">Creating Digital</span>
                 <span class="title-line accent">Experiences</span>
-                <span class="title-line">That Matter</span>
+                <span class="title-line">That Matters</span>
             </h1>
             <p class="hero-description">
                 I'm <strong>Vignesh</strong> – a Full-Stack Developer blending technical expertise 
